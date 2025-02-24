@@ -78,7 +78,7 @@
             @else <!-- Otherwise... -->
                 @foreach ($attractions as $attraction)
                     <section class="reviewBox">
-                        <h2>{{ $attraction->id }}</h2>
+                        <h2>{{ $attraction->title }}</h2>
                         <p class="review-text">{{ $attraction->text }}</p>
                         @foreach ($users as $user)
                             @if ($attraction->userID == $user->id)
@@ -100,7 +100,7 @@
             @else <!-- Otherwise... -->
                 @foreach ($books as $book)
                     <section class="reviewBox">
-                        <h2>{{ $book->id }}</h2>
+                        <h2>{{ $book->title }}</h2>
                         <p class="review-text">{{ $book->text }}</p>
                         @foreach ($users as $user)
                             @if ($book->userID == $user->id)
@@ -122,7 +122,7 @@
             @else <!-- Otherwise... -->
                 @foreach ($foods as $food)
                     <section class="reviewBox">
-                        <h2>{{ $food->id }}</h2>
+                        <h2>{{ $food->title }}</h2>
                         <p class="review-text">{{ $food->text }}</p>
                         @foreach ($users as $user)
                             @if ($food->userID == $user->id)
