@@ -38,6 +38,7 @@
                             </div>
                         </form>
                         <div class="text-center mt-3">
+                        <a href="/" class="text-decoration-none">Home</a>
                             <a href="register" class="text-decoration-none">Not a user? Register Here</a>
                         </div>
                     </div>
