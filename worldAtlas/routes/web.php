@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ReviewsController;
+use App\Http\Controllers\ItemsController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -19,6 +20,9 @@ Route::post('/login-user', [LoginController::class, 'loginUser'])->name('login-u
 // Dashboard and Logout Routes
 Route::get('/dashboard', [LoginController::class, 'dashboard'])->name('dashboard');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+
+// Item Routes
+Route::get('/book/{bookID}', [ItemsController::class, 'loadBook']);
 
 // Review routes
 Route::get('/review', [ReviewsController::class, 'getReviews']);
