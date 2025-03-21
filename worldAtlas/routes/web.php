@@ -1,12 +1,17 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\FoodController;
+
 use App\Http\Controllers\ReviewsController;
 use App\Http\Controllers\ItemsController;
 
 Route::get('/', function () {
     return view('welcome');
 });
+
 
 Route::get('/', [LoginController::class, 'welcome'])->name('welcome');
 // Registration Routes
@@ -20,6 +25,10 @@ Route::post('/login-user', [LoginController::class, 'loginUser'])->name('login-u
 // Dashboard and Logout Routes
 Route::get('/dashboard', [LoginController::class, 'dashboard'])->name('dashboard');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+
+
+// Food routes
+Route::get('/foodHome', [FoodController::class, 'foodHome'])->name('food');
 
 // Item Routes
 Route::get('/book/{bookID}', [ItemsController::class, 'loadBook']);
