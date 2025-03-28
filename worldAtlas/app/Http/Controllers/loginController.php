@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
@@ -88,11 +87,20 @@ class LoginController extends Controller
         return redirect()->route('login')->with('fail', 'Please log in first.');
     }
 
-    // Handle user logout
-    public function logout()
-    {
-        // Flush the session data to log out
-        Session::flush();
-        return redirect()->route('login')->with('success', 'Logged out successfully.');
-    }
+
+public function logout(Request $request)
+{
+    // Log the user out
+    Auth::logout();
+
+    // Invalidate the session
+    $request->session()->invalidate();
+
+    // Regenerate the CSRF token
+    $request->session()->regenerateToken();
+
+    // Redirect to the login page
+    return redirect()->route('login');
+}
+
 }
