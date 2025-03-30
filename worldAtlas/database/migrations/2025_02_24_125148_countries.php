@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('foods', function (Blueprint $table) {
+        Schema::create('countries', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('describer');
             $table->string('imgURL');
-            $table->string('publisher');
             $table->timestamps();
         });
     }

@@ -11,18 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('foods', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('describer');
-            $table->string('imgURL');
-            $table->string('publisher');
+        Schema::create('users', function (Blueprint $table) {
+            $table->ID();
             $table->timestamps();
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
-        Schema::dropIfExists('countries');
+        Schema::dropIfExists('users');
     }
 };

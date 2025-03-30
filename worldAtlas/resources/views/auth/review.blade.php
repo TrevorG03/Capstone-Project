@@ -48,7 +48,7 @@
                 padding: 10px;
                 margin-top: 10px;
                 font-style: bold;
-                font-size: 16px;
+                font-size: 14px;
                 background-color: darkseagreen;
                 border-style: solid;
                 border-radius: 10px;
@@ -71,6 +71,7 @@
             <h1>Product Reviews</h1>
         </header>
         <main>
+            <a href="/book/1">Test Link</a>
             @if (count($attractions) == 0 || !isset($attractions)) <!-- If the set is empty --> 
                 <section class="reviewBox">
                 <h3>ERROR: Attractions has nothing in it!</h3>
@@ -85,7 +86,7 @@
                                 <span class="review-creator">- {{ $user->name }}</span>
                             @endif
                         @endforeach
-                        <form action="review" method="post">
+                        <form action="auth.review" method="post">
                             @csrf
                             <button type="submit" class="base-button">View more posts by this person [WIP]</button>
                         </form>
@@ -107,7 +108,7 @@
                                 <span class="review-creator">- {{ $user->name }}</span>
                             @endif
                         @endforeach
-                        <form action="review" method="post">
+                        <form action="auth.review" method="post">
                             @csrf
                             <button type="submit" class="base-button">View more posts by this person [WIP]</button>
                         </form>
@@ -129,7 +130,7 @@
                                 <span class="review-creator">- {{ $user->name }}</span>
                             @endif
                         @endforeach
-                        <form action="review" method="post">
+                        <form action="auth.review" method="post">
                             @csrf
                             <button type="submit" class="base-button">View more posts by this person [WIP]</button>
                         </form>
