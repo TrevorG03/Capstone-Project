@@ -23,9 +23,9 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // Item Routes
 Route::get('/book/{bookID}', [ItemsController::class, 'loadBook']);
+Route::post('/book/createReview/{bookID}', [ItemsController::class, 'createReview']);
 
 // Review routes
-Route::get('/review', [ReviewsController::class, 'getReviews']);
-Route::post('/review', [ReviewsController::class, 'getReviews']);
+Route::post('/review/{itemType}/{itemID}', [ReviewsController::class, 'getReviews']);
 
 ?>

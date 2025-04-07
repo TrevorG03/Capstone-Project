@@ -30,8 +30,7 @@
             }
 
             .reviewBox h2 {
-                margin-top: 4%;
-                margin-left: 2%;
+                
             }
 
             .reviewBox hr {
@@ -86,8 +85,29 @@
             }
 
             .book-image {
-                max-width: 35%;
+                max-width: 25%;
                 border: 1px solid black;
+            }
+
+            .book-info {
+                border: 3px dashed black;
+                border-radius: 2px;
+                margin: 10px;
+                padding-left: 5%;
+                padding-bottom: 3%;
+                align-items: center;
+            }
+
+            .top-star {
+                font-size: 50px;
+            }
+
+            .fa-star {
+                color: orange;
+            }
+
+            .top-star-text {
+                font-size: 30px;
             }
             
         </style>
@@ -95,6 +115,32 @@
     <body>
         <header>
             <h1>{{ $book[0]->name }}</h1>
+            @if ($avgStars > 0.9)
+            <span><i class="fa fa-star top-star">★</i></span>
+            @else
+            <span><i class="fa fa-star top-star">☆</i></span>
+            @endif
+            @if ($avgStars > 1.9)
+            <span><i class="fa fa-star top-star">★</i></span>
+            @else
+            <span><i class="fa fa-star top-star">☆</i></span>
+            @endif
+            @if ($avgStars > 2.9)
+            <span><i class="fa fa-star top-star">★</i></span>
+            @else
+            <span><i class="fa fa-star top-star">☆</i></span>
+            @endif
+            @if ($avgStars > 3.9)
+            <span><i class="fa fa-star top-star">★</i></span>
+            @else
+            <span><i class="fa fa-star top-star">☆</i></span>
+            @endif
+            @if ($avgStars > 4.9)
+            <span><i class="fa fa-star top-star">★</i></span>
+            @else
+            <span><i class="fa fa-star top-star">☆</i></span>
+            @endif
+            <p><i class="fa top-star-text">{{ $avgStars }} Stars</i></p>
         </header>
         <main>
             <!-- <img src="{{ asset('image/sALt.jpg') }}" alt="Book image" class="book-image"> -->
@@ -108,14 +154,174 @@
                     <img src="{{ $book[0]->imgURL }}" alt="Book image" class="book-image">
                 </div>
                 <hr>
-                <h2>{{ $book[0]->name }}</h2>
-                <p class="book-text">{{ $book[0]->describer }}</p>
-                <span class="book-author">- {{ $book[0]->publisher }}</span>
-                <!-- <form action="auth.books" method="post">
+                <div class="book-info">
+                    <h2>{{ $book[0]->name }}</h2>
+                    <p class="book-text">{{ $book[0]->describer }}</p>
+                </div>
+                <p></p>
+                <span class="book-author">Publisher: <p class="review-creator">{{ $book[0]->publisher }}</p></span>
+                <form action="/review/book/{{ $book[0]->id }}" method="post">
                     @csrf
-                    <button type="submit" class="base-button">View more posts by this person [WIP]</button>
-                </form> -->
+                    <button type="submit" class="base-button">View more reviews about this item</button>
+                </form>
             </section>
+            @if (count($books) == 0 || !isset($books)) <!-- If the set is empty -->
+                <section class="reviewBox">
+                    <h3>ERROR: Books has nothing in it!</h3>
+                </section>
+            @else <!-- Otherwise... -->
+                <section class="reviewBox">
+                    <h2>{{ $reviewOne->title }}</h2>
+                    <p class="review-text">{{ $reviewOne->text }}</p>
+                    @foreach ($users as $user)
+                        @if ($reviewOne->userID == $user->id)
+                            <span class="review-creator">- {{ $user->name }}</span>
+                            <p>
+                            <span><i class="fa fa-text">{{ $reviewOne->stars }} Stars</i></span>
+                            @if ($reviewOne->stars > 0)
+                            <span><i class="fa fa-star">★</i></span>
+                            @else
+                            <span><i class="fa fa-star">☆</i></span>
+                            @endif
+                            @if ($reviewOne->stars > 1)
+                            <span><i class="fa fa-star">★</i></span>
+                            @else
+                            <span><i class="fa fa-star">☆</i></span>
+                            @endif
+                            @if ($reviewOne->stars > 2)
+                            <span><i class="fa fa-star">★</i></span>
+                            @else
+                            <span><i class="fa fa-star">☆</i></span>
+                            @endif
+                            @if ($reviewOne->stars > 3)
+                            <span><i class="fa fa-star">★</i></span>
+                            @else
+                            <span><i class="fa fa-star">☆</i></span>
+                            @endif
+                            @if ($reviewOne->stars > 4)
+                            <span><i class="fa fa-star">★</i></span>
+                            @else
+                            <span><i class="fa fa-star">☆</i></span>
+                            @endif
+                            </p>
+                        @endif
+                    @endforeach
+                </section>
+                <section class="reviewBox">
+                    <h2>{{ $reviewTwo->title }}</h2>
+                    <p class="review-text">{{ $reviewTwo->text }}</p>
+                    @foreach ($users as $user)
+                        @if ($reviewTwo->userID == $user->id)
+                            <span class="review-creator">- {{ $user->name }}</span>
+                            <p>
+                            <span><i class="fa fa-text">{{ $reviewTwo->stars }} Stars</i></span>
+                            @if ($reviewTwo->stars > 0)
+                            <span><i class="fa fa-star">★</i></span>
+                            @else
+                            <span><i class="fa fa-star">☆</i></span>
+                            @endif
+                            @if ($reviewTwo->stars > 1)
+                            <span><i class="fa fa-star">★</i></span>
+                            @else
+                            <span><i class="fa fa-star">☆</i></span>
+                            @endif
+                            @if ($reviewTwo->stars > 2)
+                            <span><i class="fa fa-star">★</i></span>
+                            @else
+                            <span><i class="fa fa-star">☆</i></span>
+                            @endif
+                            @if ($reviewTwo->stars > 3)
+                            <span><i class="fa fa-star">★</i></span>
+                            @else
+                            <span><i class="fa fa-star">☆</i></span>
+                            @endif
+                            @if ($reviewTwo->stars > 4)
+                            <span><i class="fa fa-star">★</i></span>
+                            @else
+                            <span><i class="fa fa-star">☆</i></span>
+                            @endif
+                            </p>
+                        @endif
+                    @endforeach
+                </section>
+                <section class="reviewBox">
+                    <h2>{{ $reviewThree->title }}</h2>
+                    <p class="review-text">{{ $reviewThree->text }}</p>
+                    @foreach ($users as $user)
+                        @if ($reviewThree->userID == $user->id)
+                            <span class="review-creator">- {{ $user->name }}</span>
+                            <p>
+                            <span><i class="fa fa-text">{{ $reviewThree->stars }} Stars</i></span>
+                            @if ($reviewThree->stars > 0)
+                            <span><i class="fa fa-star">★</i></span>
+                            @else
+                            <span><i class="fa fa-star">☆</i></span>
+                            @endif
+                            @if ($reviewThree->stars > 1)
+                            <span><i class="fa fa-star">★</i></span>
+                            @else
+                            <span><i class="fa fa-star">☆</i></span>
+                            @endif
+                            @if ($reviewThree->stars > 2)
+                            <span><i class="fa fa-star">★</i></span>
+                            @else
+                            <span><i class="fa fa-star">☆</i></span>
+                            @endif
+                            @if ($reviewThree->stars > 3)
+                            <span><i class="fa fa-star">★</i></span>
+                            @else
+                            <span><i class="fa fa-star">☆</i></span>
+                            @endif
+                            @if ($reviewThree->stars > 4)
+                            <span><i class="fa fa-star">★</i></span>
+                            @else
+                            <span><i class="fa fa-star">☆</i></span>
+                            @endif
+                            </p>
+                        @endif
+                    @endforeach
+                </section>
+            @endif
+            <header>
+                <h1>New review</h1>
+                <form action="/book/createReview/{{ $book[0]->id }}" id="reviewForm" method="POST">
+                    @csrf
+                    <label for="title">Title:</label><br>
+                    <input type="text" id="title" name="title" required><br><br>
+
+                    <label for="text">Text:</label><br>
+                    <textarea id="text" name="text" rows="4" cols="50" required></textarea><br><br>
+
+                    <label for="stars">Rate (1 to 5):</label><br>
+                    <select id="stars" name="stars" required>
+                        <option value="1">1 Star</option>
+                        <option value="2">2 Stars</option>
+                        <option value="3">3 Stars</option>
+                        <option value="4">4 Stars</option>
+                        <option value="5">5 Stars</option>
+                    </select><br><br>
+
+                    <button type="submit">Submit</button>
+                </form>
+            </header>
         </main>
+
+        <script>
+            document.getElementById("reviewForm").onsubmit = function(event) {
+                const title = document.getElementById("title").value;
+                const text = document.getElementById("text").value;
+                const stars = document.getElementById("stars").value;
+
+                if (!title || !text || !stars) {
+                    alert("Please fill out all fields!");
+                    event.preventDefault();
+                }
+                // else if () {
+                //     alert("You already put a review on this item!");
+                //     event.preventDefault();
+                // }
+            };
+        </script>
+
     </body>
 </html>
