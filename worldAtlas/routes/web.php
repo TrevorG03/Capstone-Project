@@ -4,8 +4,8 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\FoodController;
-
 use App\Http\Controllers\ReviewsController;
+use App\Http\Controllers\CountryController;
 use App\Http\Controllers\ItemsController;
 
 Route::get('/', function () {
@@ -33,9 +33,11 @@ Route::get('/foodEntryForm', [FoodController::class, 'foodEntryForm'])->name('fo
 
 // Item Routes
 Route::get('/book/{bookID}', [ItemsController::class, 'loadBook']);
+Route::post('/book/createReview/{bookID}', [ItemsController::class, 'createReview']);
 
 // Review routes
-Route::get('/review', [ReviewsController::class, 'getReviews']);
-Route::post('/review', [ReviewsController::class, 'getReviews']);
+Route::post('/review/{itemType}/{itemID}', [ReviewsController::class, 'getReviews']);
 
+Route::get('/countries/{name}', [CountryController::class, 'show']);
 ?>
+

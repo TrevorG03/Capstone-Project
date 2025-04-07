@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\DB;
 
 class ReviewsController extends Controller
 {
-    public function getReviews() {
+    public function getReviews($itemType, $itemID) {
 
         // $newData = new attractionReview(); $newData->userID = 1; $newData->attractionID = 1; $newData->countryID = 1;
         // $newData->text = "This is the attraction review text! But first!"; $newData->title = "This is the attraction review title! But First!"; $newData->stars = 5; 
@@ -73,14 +73,38 @@ class ReviewsController extends Controller
         // $newData->imgURL = "https://i.pinimg.com/736x/be/31/d7/be31d7e4e3c7b60d1fd058f4fde5abad.jpg"; $newData->publisher = "Ethan";
         // $newData->save();
 
-        $attractions = DB::table('attraction_reviews')->whereBetween('id', [1, 3])->get();
-        $books = DB::table('book_reviews')->whereBetween('id', [1, 3])->get();
-        $foods = DB::table('food_reviews')->whereBetween('id', [1, 3])->get();
-        // $attractionStars = attractionReview::avg('stars');
         $countries = DB::table('countries')->get();
         $users = DB::table('users')->select('id', 'name')->get();
+        $avgStars = 0.0;
+        if ($itemType == "attraction") {
+            $attractions = DB::table('attraction_reviews')->where('id', $itemID)->get();
+            $books = DB::table('book_reviews')->where('id', -1)->get(); // Dummy data
+            $foods = DB::table('food_reviews')->where('id', -1)->get(); // Dummy data
+            $itemName = DB::table('attractions')->where('id', $itemID)->get()->pluck('name');
+            for ($i = 0; $i < sizeOf($attractions); $i++) {$avgStars += $attractions[$i]->stars;}
+            $avgStars /= sizeOf($attractions);
+        }
 
-        return view('auth.review', compact('attractions', 'books', 'foods', 'users', 'countries'));
+        if ($itemType == "book") {
+            $attractions = DB::table('attraction_reviews')->where('id', -1)->get(); // Dummy data
+            $books = DB::table('book_reviews')->where('bookID', $itemID)->get();
+            $foods = DB::table('food_reviews')->where('id', -1)->get(); // Dummy data
+            $itemName = DB::table('books')->where('id', $itemID)->get()->pluck('name');
+            for ($i = 0; $i < sizeOf($books); $i++) {$avgStars += $books[$i]->stars;}
+            $avgStars /= sizeOf($books);
+        }
+
+        if ($itemType == "food") {
+            $attractions = DB::table('attraction_reviews')->where('id', -1)->get(); // Dummy data
+            $books = DB::table('book_reviews')->where('id', -1)->get(); // Dummy data
+            $foods = DB::table('food_reviews')->where('id', $itemID)->get();
+            $itemName = DB::table('foods')->where('id', $itemID)->get()->pluck('name');
+            for ($i = 0; $i < sizeOf($foods); $i++) {$avgStars += $foods[$i]->stars;}
+            $avgStars /= sizeOf($foods);
+        }
+
+        $avgStars = number_format((float) $avgStars, 1, '.', '');
+        return view('auth.review', compact('attractions', 'books', 'foods', 'users', 'countries', 'itemName', 'avgStars'));
     }
 
     public function getAttractReviews() {

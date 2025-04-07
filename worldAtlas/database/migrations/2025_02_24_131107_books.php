@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('describer');
             $table->string('imgURL');
             $table->string('publisher');
+            $table->string('countryID');
             $table->timestamps();
         });
     }
