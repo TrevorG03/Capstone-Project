@@ -10,12 +10,13 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    // Show the registration page
-
+    // Show the welcome page
     public function welcome()
     {
         return view('welcome');
     }
+    
+    // Show the registration page
     public function register()
     {
         return view("auth.register");
@@ -24,18 +25,20 @@ class LoginController extends Controller
     // Handle user registration
     public function registerUser(Request $request)
     {
-        // Validate the request
+        // Validate the request, including the email field
         $request->validate([
-            'username' => 'required|string|unique:users,username',
+            'name'     => 'required|string|unique:users,name',
+            'email'    => 'required|email|unique:users,email',
             'password' => 'required|string|min:8|max:12',
         ]);
-
-        // Create a new user instance
+        
+        // Create a new user instance and assign values from the request
         $user = new User();
-        $user->username = $request->username;
-        $user->password = Hash::make($request->password); // Ensure password is hashed
+        $user->name     = $request->name;
+        $user->email    = $request->email;
+        $user->password = Hash::make($request->password); // Ensure the password is hashed
 
-        // Save the user and handle response
+        // Save the user and handle the response
         if ($user->save()) {
             return redirect()->route('login')->with('success', 'Registration successful. You can now log in.');
         } else {
@@ -53,30 +56,37 @@ class LoginController extends Controller
 
         return view("auth.login");
     }
+
+    // Handle user login
     public function loginUser(Request $request)
     {
+        // Validate the login request
         $request->validate([
-            'username' => 'required|string',
+            'name'     => 'required|string',
             'password' => 'required|string|min:8',
         ]);
     
-        $user = User::where('username', $request->username)->first();
+        // Retrieve the user by name
+        $user = User::where('name', $request->name)->first();
     
         if (!$user) {
             return back()->with('fail', 'User not found.');
         }
     
+        // Check if the provided password matches the hashed password in the database
         if (!Hash::check($request->password, $user->password)) {
             return back()->with('fail', 'Incorrect password.');
         }
     
-        Session::put('loginId', $user->ID);
+        // Store user id in the session for authentication
+        Session::put('loginId', $user->id);
         
-        // Debug session after auth
+        // Debug session after authentication
         \Log::info('Post-Auth Session: ', session()->all());
         
         return redirect()->route('dashboard');
     }
+    
     // Display the dashboard
     public function dashboard()
     {
@@ -87,20 +97,19 @@ class LoginController extends Controller
         return redirect()->route('login')->with('fail', 'Please log in first.');
     }
 
+    // Handle user logout
+    public function logout(Request $request)
+    {
+        // Log the user out
+        Auth::logout();
 
-public function logout(Request $request)
-{
-    // Log the user out
-    Auth::logout();
+        // Invalidate the session
+        $request->session()->invalidate();
 
-    // Invalidate the session
-    $request->session()->invalidate();
+        // Regenerate the CSRF token
+        $request->session()->regenerateToken();
 
-    // Regenerate the CSRF token
-    $request->session()->regenerateToken();
-
-    // Redirect to the login page
-    return redirect()->route('login');
-}
-
+        // Redirect to the login page
+        return redirect()->route('login');
+    }
 }
