@@ -29,6 +29,7 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // Food routes
 Route::get('/foodHome', [FoodController::class, 'foodHome'])->name('food');
+Route::get('/foodEntryForm', [FoodController::class, 'foodEntryForm'])->name('foodEntryForm');
 
 // Item Routes
 Route::get('/book/{bookID}', [ItemsController::class, 'loadBook']);

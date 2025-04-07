@@ -4,171 +4,161 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Food Info</title>
-    <!-- <link rel="stylesheet" href="{{ asset('css/app.css') }}"> -->
-    <link rel="stylesheet" href="{{ asset('CSS/food.css') }}">
-    <!-- <style>
-                body {
-        background-image: url('https://th.bing.com/th/id/OIP.2AZXBdxYoyNVbmg8npy5BQHaEK?w=290&h=180&c=7&r=0&o=5&dpr=1.5&pid=1.7');
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        background-size: cover;
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('food.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        .foodCard-contianer {
+        display: flex;
+        gap: 20px;
+        overflow-x: auto;
+        padding: 20px;
+        background-color: #f5f5f5;
+        scroll-behavior: smooth;
+        white-space: nowrap;
         }
-    </style> -->
+
+        .foodItem-Card {
+            flex: 0 0 auto;
+            width: 300px;
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .foodItem-Card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .foodItem-Card h2 {
+            font-size: 18px;
+            color: #333;
+            text-align: center;
+            padding: 10px 0;
+            margin: 0;
+            border-bottom: 1px solid #eee;
+            background-color: #f9f9f9;
+        }
+
+        .foodItem-Card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .foodItem-Card p {
+            padding: 15px;
+            color: #555;
+            font-size: 14px;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .foodItem-Card a {
+            display: inline-block;
+            margin: 10px 15px;
+            text-decoration: none;
+            font-weight: bold;
+            color: #1a73e8;
+            transition: color 0.3s ease;
+        }
+
+        .foodItem-Card a:hover {
+            color: #0048a2;
+        }
+    </style>
 </head>
 
 <body>
- 
     <h1>Hello, you have reached the Food page!</h1>
     <h2>Explore what the world has to offer your tastebuds!</h2>
 
-<!-- IN CASE YOU FORGET- MAKE THESE CARDS SIDE BY SIDE TO DISPLAY BETTER, AND CHANGE THE COLORS!! -->
-	<!-- SLIDING CARDS -->
-	<div class="wrap animate pop">
-		<div class="overlay">
-			<div class="overlay-content animate slide-left delay-2">
-				<h1 class="animate slide-left pop delay-4">Food 1</h1>
-				<p class="animate slide-left pop delay-5" style="color: white; margin-bottom: 2.5rem;">Continent: <em>North America</em></p>
-			</div>
-			<div class="image-content animate slide delay-5"></div>
-			<div class="dots animate">
-				<div class="dot animate slide-up delay-6"></div>
-				<div class="dot animate slide-up delay-7"></div>
-				<div class="dot animate slide-up delay-8"></div>
-			</div>
-		</div>
-		<div class="text">
-			<p><img class="inset" src="https://assets.codepen.io/4787486/oak_1.jpg" alt="" />Trees are woody perennial plants that are a member of the kingdom <em>Plantae</em>. All species of trees are grouped by their genus, family, and order. This helps make identifying and studying trees easier.</p>
-			<p>Apart from providing oxygen for the planet and beauty when they bloom or turn color, trees are very useful. Certain species of hardwood and softwood trees are excellent for timber, making furniture, and paper.</p>
-			<p>When managed properly, trees are a good source of renewable energy and construction material.</p>
-		</div>
-	</div>
+    <div class="foodCard-contianer">
+        <div class="foodItem-Card">
+            <h2>Food item 1</h2>
+            <img src="" alt="food img 1">
+            <p>Food desc</p>
+            <p> <a href="">Link to wkipedia or forms</a>  </p>
+        </div>
 
+        <div class="foodItem-Card">
+            <h2>Food item 2</h2>
+            <img src="" alt="food img 1">
+            <p>Food desc</p>
+            <p> <a href="">Link to wkipedia or forms</a>  </p>
+        </div>
 
-	<div class="wrap animate pop">
-		<div class="overlay">
-			<div class="overlay-content animate slide-left delay-2">
-				<h1 class="animate slide-left pop delay-4">Food 2</h1>
-				<p class="animate slide-left pop delay-5" style="color: white; margin-bottom: 2.5rem;">Continent: <em>South America</em></p>
-			</div>
-			<div class="image-content animate slide delay-5"></div>
-			<div class="dots animate">
-				<div class="dot animate slide-up delay-6"></div>
-				<div class="dot animate slide-up delay-7"></div>
-				<div class="dot animate slide-up delay-8"></div>
-			</div>
-		</div>
-		<div class="text">
-			<p><img class="inset" src="https://assets.codepen.io/4787486/oak_1.jpg" alt="" />Trees are woody perennial plants that are a member of the kingdom <em>Plantae</em>. All species of trees are grouped by their genus, family, and order. This helps make identifying and studying trees easier.</p>
-			<p>Apart from providing oxygen for the planet and beauty when they bloom or turn color, trees are very useful. Certain species of hardwood and softwood trees are excellent for timber, making furniture, and paper.</p>
-			<p>When managed properly, trees are a good source of renewable energy and construction material.</p>
-		</div>
-	</div>
+        <div class="foodItem-Card">
+            <h2>Food item 2</h2>
+            <img src="" alt="food img 1">
+            <p>Food desc</p>
+            <p> <a href="">Link to wkipedia or forms</a>  </p>
+        </div>
 
+        <div class="foodItem-Card">
+            <h2>Food item 2</h2>
+            <img src="" alt="food img 1">
+            <p>Food desc</p>
+            <p> <a href="">Link to wkipedia or forms</a>  </p>
+        </div>
 
+        <!-- <div class="foodItem-Card">
+            <h2>Food item 2</h2>
+            <img src="" alt="food img 1">
+            <p>Food desc</p>
+            <p> <a href="">Link to wkipedia or forms</a>  </p>
+        </div>
 
-	<div class="wrap animate pop">
-		<div class="overlay">
-			<div class="overlay-content animate slide-left delay-2">
-				<h1 class="animate slide-left pop delay-4">Food 3</h1>
-				<p class="animate slide-left pop delay-5" style="color: white; margin-bottom: 2.5rem;">Continent: <em>Europe</em></p>
-			</div>
-			<div class="image-content animate slide delay-5"></div>
-			<div class="dots animate">
-				<div class="dot animate slide-up delay-6"></div>
-				<div class="dot animate slide-up delay-7"></div>
-				<div class="dot animate slide-up delay-8"></div>
-			</div>
-		</div>
-		<div class="text">
-			<p><img class="inset" src="https://assets.codepen.io/4787486/oak_1.jpg" alt="" />Trees are woody perennial plants that are a member of the kingdom <em>Plantae</em>. All species of trees are grouped by their genus, family, and order. This helps make identifying and studying trees easier.</p>
-			<p>Apart from providing oxygen for the planet and beauty when they bloom or turn color, trees are very useful. Certain species of hardwood and softwood trees are excellent for timber, making furniture, and paper.</p>
-			<p>When managed properly, trees are a good source of renewable energy and construction material.</p>
-		</div>
-	</div>
+        <div class="foodItem-Card">
+            <h2>Food item 2</h2>
+            <img src="" alt="food img 1">
+            <p>Food desc</p>
+            <p> <a href="">Link to wkipedia or forms</a>  </p>
+        </div>
 
+        <div class="foodItem-Card">
+            <h2>Food item 2</h2>
+            <img src="" alt="food img 1">
+            <p>Food desc</p>
+            <p> <a href="">Link to wkipedia or forms</a>  </p>
+        </div> -->
+    </div>
 
+    <section>
+        <div>
+            <div class="container">
+                <h1>This is the food form. Use this form to add a food to our database!</h1>
+                <h2>This is a Form you can use to add Foods to our website. </h2>
+                <form role="form" method="post">
+                    <div class="form-group">
+                        <label for="foodName">What's the name of the food?</label>
+                        <input class="form-control" type="text" id="foodName" placeholder="Food Name">
+                    </div>
 
-	<div class="wrap animate pop">
-		<div class="overlay">
-			<div class="overlay-content animate slide-left delay-2">
-				<h1 class="animate slide-left pop delay-4">Food 4</h1>
-				<p class="animate slide-left pop delay-5" style="color: white; margin-bottom: 2.5rem;">Continent: <em>Asia</em></p>
-			</div>
-			<div class="image-content animate slide delay-5"></div>
-			<div class="dots animate">
-				<div class="dot animate slide-up delay-6"></div>
-				<div class="dot animate slide-up delay-7"></div>
-				<div class="dot animate slide-up delay-8"></div>
-			</div>
-		</div>
-		<div class="text">
-			<p><img class="inset" src="https://assets.codepen.io/4787486/oak_1.jpg" alt="" />Trees are woody perennial plants that are a member of the kingdom <em>Plantae</em>. All species of trees are grouped by their genus, family, and order. This helps make identifying and studying trees easier.</p>
-			<p>Apart from providing oxygen for the planet and beauty when they bloom or turn color, trees are very useful. Certain species of hardwood and softwood trees are excellent for timber, making furniture, and paper.</p>
-			<p>When managed properly, trees are a good source of renewable energy and construction material.</p>
-		</div>
-	</div>
+                    <div class="form-group">
+                        <label for="continentName">Where does the food come from?</label>
+                        <input class="form-control" type="text" id="continentName" placeholder="Continent Name">
+                    </div>
 
+                    <div class="form-group">
+                        <label for="foodTextArea">Describe your Food!</label>
+                        <textarea class="form-control" id="foodTextArea" rows="4" placeholder="Enter a Description for the food here."></textarea>
+                    </div>
 
-	<div class="wrap animate pop">
-		<div class="overlay">
-			<div class="overlay-content animate slide-left delay-2">
-				<h1 class="animate slide-left pop delay-4">Food 5</h1>
-				<p class="animate slide-left pop delay-5" style="color: white; margin-bottom: 2.5rem;">Continent: <em>Australia/Oceania</em></p>
-			</div>
-			<div class="image-content animate slide delay-5"></div>
-			<div class="dots animate">
-				<div class="dot animate slide-up delay-6"></div>
-				<div class="dot animate slide-up delay-7"></div>
-				<div class="dot animate slide-up delay-8"></div>
-			</div>
-		</div>
-		<div class="text">
-			<p><img class="inset" src="https://assets.codepen.io/4787486/oak_1.jpg" alt="" />Trees are woody perennial plants that are a member of the kingdom <em>Plantae</em>. All species of trees are grouped by their genus, family, and order. This helps make identifying and studying trees easier.</p>
-			<p>Apart from providing oxygen for the planet and beauty when they bloom or turn color, trees are very useful. Certain species of hardwood and softwood trees are excellent for timber, making furniture, and paper.</p>
-			<p>When managed properly, trees are a good source of renewable energy and construction material.</p>
-		</div>
-	</div>
+                    <div class="checkbox">
+                        <label><input class="form-check-label" type="checkbox">I have verified that this info is accurate.</label>
+                    </div>
 
-	<div class="wrap animate pop">
-		<div class="overlay">
-			<div class="overlay-content animate slide-left delay-2">
-				<h1 class="animate slide-left pop delay-4">Food 6</h1>
-				<p class="animate slide-left pop delay-5" style="color: white; margin-bottom: 2.5rem;">Continent: <em>Africa</em></p>
-			</div>
-			<div class="image-content animate slide delay-5"></div>
-			<div class="dots animate">
-				<div class="dot animate slide-up delay-6"></div>
-				<div class="dot animate slide-up delay-7"></div>
-				<div class="dot animate slide-up delay-8"></div>
-			</div>
-		</div>
-		<div class="text">
-			<p><img class="inset" src="https://assets.codepen.io/4787486/oak_1.jpg" alt="" />Trees are woody perennial plants that are a member of the kingdom <em>Plantae</em>. All species of trees are grouped by their genus, family, and order. This helps make identifying and studying trees easier.</p>
-			<p>Apart from providing oxygen for the planet and beauty when they bloom or turn color, trees are very useful. Certain species of hardwood and softwood trees are excellent for timber, making furniture, and paper.</p>
-			<p>When managed properly, trees are a good source of renewable energy and construction material.</p>
-		</div>
-	</div>
-
-
-	<div class="wrap animate pop">
-		<div class="overlay">
-			<div class="overlay-content animate slide-left delay-2">
-				<h1 class="animate slide-left pop delay-4">Food 7</h1>
-				<p class="animate slide-left pop delay-5" style="color: white; margin-bottom: 2.5rem;">Continent: <em>Antarctica</em></p>
-			</div>
-			<div class="image-content animate slide delay-5"></div>
-			<div class="dots animate">
-				<div class="dot animate slide-up delay-6"></div>
-				<div class="dot animate slide-up delay-7"></div>
-				<div class="dot animate slide-up delay-8"></div>
-			</div>
-		</div>
-		<div class="text">
-			<p><img class="inset" src="https://assets.codepen.io/4787486/oak_1.jpg" alt="" />Trees are woody perennial plants that are a member of the kingdom <em>Plantae</em>. All species of trees are grouped by their genus, family, and order. This helps make identifying and studying trees easier.</p>
-			<p>Apart from providing oxygen for the planet and beauty when they bloom or turn color, trees are very useful. Certain species of hardwood and softwood trees are excellent for timber, making furniture, and paper.</p>
-			<p>When managed properly, trees are a good source of renewable energy and construction material.</p>
-		</div>
-	</div>
-
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </form>
+            </div>
+        </div>
+    </section>
 </body>
 </html>
