@@ -24,8 +24,13 @@
                             @endif
                             @csrf
                             <div class="mb-3">
-                                <label for="email" class="form-label">Username</label>
-                                <input type="text" name="username" id="username" class="form-control" placeholder="Enter Username" value="{{ old('Username') }}">
+                                <label for="name" class="form-label">name</label>
+                                <input type="name" class="form-control" name="name" id="name" placeholder="Create a password">
+                                <span class="text-danger">@error('password') {{ $message }} @enderror</span>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="text" name="email" id="email" class="form-control" placeholder="Enter Username" value="{{ old('Username') }}">
                                 <span class="text-danger">@error('email') {{ $message }} @enderror</span>
                             </div>
                             <div class="mb-3">
