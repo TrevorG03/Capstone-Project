@@ -39,11 +39,11 @@ Route::get('/foodHome', [FoodController::class, 'foodHome'])->name('food');
 
 // Item Routes
 Route::get('/book/{bookID}', [ItemsController::class, 'loadBook']);
+Route::post('/book/createReview/{bookID}', [ItemsController::class, 'createReview']);
 
 >>>>>>> 57ef25039e8376aebcb20c505a7a74576859c541
 // Review routes
-Route::get('/review', [ReviewsController::class, 'getReviews']);
-Route::post('/review', [ReviewsController::class, 'getReviews']);
+Route::post('/review/{itemType}/{itemID}', [ReviewsController::class, 'getReviews']);
 
 <<<<<<< HEAD
 Route::get('/countries/{name}', [CountryController::class, 'show']);
