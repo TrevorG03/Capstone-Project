@@ -121,7 +121,7 @@
     </head>
     <body>
         <header>
-            <h1>{{ $book[0]->name }}</h1>
+            <h1>{{ $food[0]->name }}</h1>
             @if ($avgStars > 0.9)
             <span><i class="fa fa-star top-star">★</i></span>
             @else
@@ -150,24 +150,24 @@
             <p><i class="fa top-star-text">{{ $avgStars }} Stars</i></p>
         </header>
         <main>
-            @if (isset(request()->bookID))
+            @if (isset(request()->foodID))
                 <p></p>
             @else
-                <p>BookID is NOT set</p>
+                <p>FoodID is NOT set</p>
             @endif
             <section class="reviewBox">
                 <div class="book-box">
-                    <img src="{{ $book[0]->imgURL }}" alt="Book image" class="book-image">
+                    <img src="{{ $food[0]->imgURL }}" alt="Book image" class="book-image">
                 </div>
                 <hr>
                 <div class="book-info">
-                    <h2>{{ $book[0]->name }}</h2>
-                    <p class="book-text">{{ $book[0]->describer }}</p>
+                    <h2>{{ $food[0]->name }}</h2>
+                    <p class="book-text">{{ $food[0]->describer }}</p>
                 </div>
                 <p></p>
-                <span class="book-author">Publisher: <p class="review-creator">{{ $book[0]->publisher }}</p></span>
+                <span class="book-author">Publisher: <p class="review-creator">{{ $food[0]->publisher }}</p></span>
                 <div class="button-container">
-                    <form action="/review/book/{{ $book[0]->id }}" method="post">
+                    <form action="/review/food/{{ $food[0]->id }}" method="post">
                         @csrf
                         <button type="submit" class="base-button">View more reviews about this item</button>
                     </form>
@@ -177,9 +177,9 @@
                     </form>
                 </div>
             </section>
-            @if (count($books) == 0 || !isset($books)) <!-- If the set is empty -->
+            @if (count($foods) == 0 || !isset($foods)) <!-- If the set is empty -->
                 <section class="reviewBox">
-                    <h3>ERROR: Books has nothing in it!</h3>
+                    <h3>ERROR: Foods has nothing in it!</h3>
                 </section>
             @else <!-- Otherwise... -->
                 <section class="reviewBox">
@@ -296,7 +296,7 @@
             @endif
             <header>
                 <h1>New review</h1>
-                <form action="/book/createReview/{{ $book[0]->id }}" id="reviewForm" method="POST">
+                <form action="/food/createReview/{{ $food[0]->id }}" id="reviewForm" method="POST">
                     @csrf
                     <label for="title">Title:</label><br>
                     <input type="text" id="title" name="title" required><br><br>
@@ -323,11 +323,11 @@
                 const title = document.getElementById("title").value;
                 const text = document.getElementById("text").value;
                 const stars = document.getElementById("stars").value;
-                const books = @json($books); 
+                const foods = @json($foods); 
                 const sessionUserID = "{{ session('userID') }}";
 
-                for (let i = 0; i < books.length; i++) {
-                    if (books[i].userID === sessionUserID) {
+                for (let i = 0; i < foods.length; i++) {
+                    if (foods[i].userID === sessionUserID) {
                         alert('You cannot submit two reviews for the same item.');
                         event.preventDefault();
                         break;
@@ -340,6 +340,5 @@
                 }
             };
         </script>
-
     </body>
 </html>
