@@ -9,11 +9,13 @@ use Illuminate\Http\Request;
 
 use App\Models\book;
 use App\Models\bookReview;
+use App\Models\food;
+use App\Models\foodReview;
+use App\Models\attraction;
+use App\Models\attractionReview;
 
 use App\Models\User;
 use App\Models\country;
-use App\Models\attractionReview;
-use App\Models\foodReview;
 
 class ItemsController extends Controller
 {
@@ -91,7 +93,6 @@ class ItemsController extends Controller
         // $newData->text = "Found this and it was a really great read! (Duplicate ignore user duplication)"; $newData->title = "DUPLICATE TESTING REVIEW"; $newData->stars = 3;
         // $newData->save();
 
-
         $book = DB::table('books')->where('id', $id)->get();
         $books = DB::table('book_reviews')->where('bookID', $id)->get();
         $users = DB::table('users')->select('id', 'name')->get();
@@ -108,6 +109,54 @@ class ItemsController extends Controller
         }
 
         return view('auth.books', compact('book', 'books', 'users', 'reviewOne', 'reviewTwo', 'reviewThree', 'avgStars'));
+    }
+
+    public function loadFood($id)
+    {
+        // $newData = new foodReview(); $newData->userID = 1; $newData->foodID = 1; $newData->countryID = 1;
+        // $newData->text = "This is the food review text! But second!"; $newData->title = "This is the food review title! But second!"; $newData->stars = 4;
+        // $newData->save();
+
+        // $newData = new foodReview(); $newData->userID = 1; $newData->foodID = 1; $newData->countryID = 1;
+        // $newData->text = "This is the food review text! But third!"; $newData->title = "This is the food review title! But third!"; $newData->stars = 4;
+        // $newData->save();
+
+        $food = DB::table('foods')->where('id', $id)->get();
+        $foods = DB::table('food_reviews')->where('foodID', $id)->get();
+        $users = DB::table('users')->select('id', 'name')->get();
+
+        $avgStars = 0.0;
+        for ($i = 0; $i < sizeOf($foods); $i++) {$avgStars += $foods[$i]->stars;}
+        $avgStars /= sizeOf($foods);
+        $avgStars = number_format((float) $avgStars, 1, '.', '');
+
+        if ($foods) {
+            $reviewOne = $foods[0];
+            $reviewTwo = $foods[1];
+            $reviewThree = $foods[2];
+        }
+
+        return view('auth.foods', compact('food', 'foods', 'users', 'reviewOne', 'reviewTwo', 'reviewThree', 'avgStars'));
+    }
+
+    public function loadAttraction($id)
+    {
+        $attraction = DB::table('attractions')->where('id', $id)->get();
+        $attractions = DB::table('attraction_reviews')->where('attractionID', $id)->get();
+        $users = DB::table('users')->select('id', 'name')->get();
+
+        $avgStars = 0.0;
+        for ($i = 0; $i < sizeOf($attractions); $i++) {$avgStars += $attractions[$i]->stars;}
+        $avgStars /= sizeOf($attractions);
+        $avgStars = number_format((float) $avgStars, 1, '.', '');
+
+        if ($attractions) {
+            $reviewOne = $attractions[0];
+            $reviewTwo = $attractions[1];
+            $reviewThree = $attractions[2];
+        }
+
+        return view('auth.attractions', compact('attraction', 'attractions', 'users', 'reviewOne', 'reviewTwo', 'reviewThree', 'avgStars'));
     }
 
     public function createReview(Request $request, $id)

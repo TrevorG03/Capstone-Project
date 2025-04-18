@@ -130,7 +130,7 @@
             <p><i class="fa fa-star top-star-text">{{ $avgStars }} Stars</i></p>
         </header>
         <main class="scroller">
-            @if (!count($attractions) == 0 || isset($attractions)) <!-- If the set is empty --> 
+        @if (!count($attractions) == 0 || isset($attractions)) <!-- If the set is not empty -->
                 @foreach ($attractions as $attraction)
                     <section class="reviewBox">
                         <h2>{{ $attraction->title }}</h2>
@@ -138,17 +138,41 @@
                         @foreach ($users as $user)
                             @if ($attraction->userID == $user->id)
                                 <span class="review-creator">- {{ $user->name }}</span>
+                                <p>
+                                <span><i class="fa fa-text">{{ $attraction->stars }} Stars</i></span>
+                                @if ($attraction->stars > 0)
+                                <span><i class="fa fa-star">★</i></span>
+                                @else
+                                <span><i class="fa fa-star">☆</i></span>
+                                @endif
+                                @if ($attraction->stars > 1)
+                                <span><i class="fa fa-star">★</i></span>
+                                @else
+                                <span><i class="fa fa-star">☆</i></span>
+                                @endif
+                                @if ($attraction->stars > 2)
+                                <span><i class="fa fa-star">★</i></span>
+                                @else
+                                <span><i class="fa fa-star">☆</i></span>
+                                @endif
+                                @if ($attraction->stars > 3)
+                                <span><i class="fa fa-star">★</i></span>
+                                @else
+                                <span><i class="fa fa-star">☆</i></span>
+                                @endif
+                                @if ($attraction->stars > 4)
+                                <span><i class="fa fa-star">★</i></span>
+                                @else
+                                <span><i class="fa fa-star">☆</i></span>
+                                @endif
+                                </p>
                             @endif
                         @endforeach
-                        <!-- <form action="auth.review" method="post">
-                            @csrf
-                            <button type="submit" class="base-button">View more posts by this person [WIP]</button>
-                        </form> -->
                     </section>
                 @endforeach
             @endif
 
-            @if (!count($books) == 0 || isset($books)) <!-- If the set is empty -->
+            @if (!count($books) == 0 || isset($books)) <!-- If the set is not empty -->
                 @foreach ($books as $book)
                     <section class="reviewBox">
                         <h2>{{ $book->title }}</h2>
@@ -186,15 +210,11 @@
                                 </p>
                             @endif
                         @endforeach
-                        <!-- <form action="auth.review" method="post">
-                            @csrf
-                            <button type="submit" class="base-button">View more posts by this person [WIP]</button>
-                        </form> -->
                     </section>
                 @endforeach
             @endif
 
-            @if (!count($foods) == 0 || isset($foods)) <!-- If the set is empty -->
+            @if (!count($foods) == 0 || isset($foods)) <!-- If the set is not empty -->
                 @foreach ($foods as $food)
                     <section class="reviewBox">
                         <h2>{{ $food->title }}</h2>
@@ -202,18 +222,50 @@
                         @foreach ($users as $user)
                             @if ($food->userID == $user->id)
                                 <span class="review-creator">- {{ $user->name }}</span>
+                                <p>
+                                <span><i class="fa fa-text">{{ $food->stars }} Stars</i></span>
+                                @if ($food->stars > 0)
+                                <span><i class="fa fa-star">★</i></span>
+                                @else
+                                <span><i class="fa fa-star">☆</i></span>
+                                @endif
+                                @if ($food->stars > 1)
+                                <span><i class="fa fa-star">★</i></span>
+                                @else
+                                <span><i class="fa fa-star">☆</i></span>
+                                @endif
+                                @if ($food->stars > 2)
+                                <span><i class="fa fa-star">★</i></span>
+                                @else
+                                <span><i class="fa fa-star">☆</i></span>
+                                @endif
+                                @if ($food->stars > 3)
+                                <span><i class="fa fa-star">★</i></span>
+                                @else
+                                <span><i class="fa fa-star">☆</i></span>
+                                @endif
+                                @if ($food->stars > 4)
+                                <span><i class="fa fa-star">★</i></span>
+                                @else
+                                <span><i class="fa fa-star">☆</i></span>
+                                @endif
+                                </p>
                             @endif
                         @endforeach
-                        <!-- <form action="auth.review" method="post">
-                            @csrf
-                            <button type="submit" class="base-button">View more posts by this person [WIP]</button>
-                        </form> -->
                     </section>
                 @endforeach
             @endif
         </main>
         <header>
-            <a href="/book/{{ $books[0]->id }}" class="btn return-btn">Go back</a>
+            @if (count($books) >= 1)
+                <a href="/book/{{ $books[0]->id }}" class="btn return-btn">Go back</a>
+            @endif
+            @if (count($foods) >= 1)
+                <a href="/food/{{ $foods[0]->id }}" class="btn return-btn">Go back</a>
+            @endif
+            @if (count($attractions) >= 1)
+                <a href="/attraction/{{ $attractions[0]->id }}" class="btn return-btn">Go back</a>
+            @endif
         </header>
     </body>
 </html>
