@@ -76,8 +76,9 @@ class ReviewsController extends Controller
         $countries = DB::table('countries')->get();
         $users = DB::table('users')->select('id', 'name')->get();
         $avgStars = 0.0;
+        
         if ($itemType == "attraction") {
-            $attractions = DB::table('attraction_reviews')->where('id', $itemID)->get();
+            $attractions = DB::table('attraction_reviews')->where('attractionID', $itemID)->get();
             $books = DB::table('book_reviews')->where('id', -1)->get(); // Dummy data
             $foods = DB::table('food_reviews')->where('id', -1)->get(); // Dummy data
             $itemName = DB::table('attractions')->where('id', $itemID)->get()->pluck('name');
@@ -97,7 +98,7 @@ class ReviewsController extends Controller
         if ($itemType == "food") {
             $attractions = DB::table('attraction_reviews')->where('id', -1)->get(); // Dummy data
             $books = DB::table('book_reviews')->where('id', -1)->get(); // Dummy data
-            $foods = DB::table('food_reviews')->where('id', $itemID)->get();
+            $foods = DB::table('food_reviews')->where('foodID', $itemID)->get();
             $itemName = DB::table('foods')->where('id', $itemID)->get()->pluck('name');
             for ($i = 0; $i < sizeOf($foods); $i++) {$avgStars += $foods[$i]->stars;}
             $avgStars /= sizeOf($foods);
@@ -106,20 +107,4 @@ class ReviewsController extends Controller
         $avgStars = number_format((float) $avgStars, 1, '.', '');
         return view('auth.review', compact('attractions', 'books', 'foods', 'users', 'countries', 'itemName', 'avgStars'));
     }
-
-    public function getAttractReviews() {
-        $attractions = DB::table('attraction_review')->get();
-        return view('auth.review', compact('attractions'));
-    }
-
-    public function getBookReviews() {
-        $book = DB::table('book_review')->get();
-        return view('auth.review', compact('book'));
-    }
-
-    public function getFoodReviews() {
-        $food = DB::table('food_review')->get();
-        return view('auth.review', compact('food'));
-    }
-
 }
