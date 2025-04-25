@@ -15,6 +15,10 @@ class FoodController extends Controller
         return view('food');
     }
 
+    public function foodEntryForm(){
+        return view('foodEntryForm');
+    }
+
     /**
      * Show the form for creating a new resource.
      */

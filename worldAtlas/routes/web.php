@@ -29,13 +29,21 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // Food routes
 Route::get('/foodHome', [FoodController::class, 'foodHome'])->name('food');
+Route::get('/foodEntryForm', [FoodController::class, 'foodEntryForm'])->name('foodEntryForm');
 
 // Item Routes
 Route::get('/book/{bookID}', [ItemsController::class, 'loadBook']);
+Route::post('/book/createReview/{bookID}', [ItemsController::class, 'createReview']);
+Route::get('/food/{foodID}', [ItemsController::class, 'loadFood']);
+Route::post('/food/createReview/{foodID}', [ItemsController::class, 'createReview']);
+Route::get('/attraction/{attractionID}', [ItemsController::class, 'loadAttraction']);
+Route::post('/attraction/createReview/{attractionID}', [ItemsController::class, 'createReview']);
 
 // Review routes
 Route::get('/review', [ReviewsController::class, 'getReviews'])->name ('review');
 Route::post('/review', [ReviewsController::class, 'getReviews'])->name ('review');
+
+Route::post('/review/{itemType}/{itemID}', [ReviewsController::class, 'getReviews']);
 
 Route::get('/countries/{name}', [CountryController::class, 'show']);
 ?>
