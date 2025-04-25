@@ -1,14 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ $name }} - Country Info</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container py-5">
+    <div class="card shadow-lg border-0 rounded-4">
+      <div class="row g-0">
+        <div class="col-md-5 d-flex align-items-center justify-content-center bg-light p-4 rounded-start">
+          <img 
+            src="https://flagcdn.com/w640/{{ strtolower($code) }}.png" 
+            alt="Flag of {{ $name }}" 
+            class="img-fluid rounded shadow"
+          >
+        </div>
 
-@section('content')
-  <div class="container">
-    <h1>{{ $name }}</h1>
+        <div class="col-md-7 p-4">
+          <h1 class="mb-3 fw-bold">{{ $name }}</h1>
 
-    <img 
-      src="https://flagcdn.com/w320/{{ strtolower($code) }}.png" 
-      alt="Flag of {{ $name }}" 
-      style="max-width: 100%; height: auto; margin-bottom: 1rem;"
-    >
+          <p class="text-muted mb-4">Explore Information and attractions in <strong>{{ $name }}</strong>.</p>
 
-    <p>Information about {{ $name }} will go here.</p>
-    {{-- You can later load data from database or API --}}
+          <div class="d-flex gap-3">
+            <a href="{{ url()->previous() }}" class="btn btn-outline-secondary rounded-pill px-4">
+              ← Back
+            </a>
+            <a href="{{ route('review', ['country' => $code]) }}" class="btn btn-primary rounded-pill px-4">
+              🌟 View More
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-5 p-4 bg-body-tertiary rounded-4 shadow-sm">
+      <h3 class="mb-3">More About {{ $name }}</h3>
+      <p>
+        Information about {{ $name }} will go here.
+      </p>
+    </div>
   </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

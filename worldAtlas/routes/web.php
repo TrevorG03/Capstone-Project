@@ -34,8 +34,8 @@ Route::get('/foodHome', [FoodController::class, 'foodHome'])->name('food');
 Route::get('/book/{bookID}', [ItemsController::class, 'loadBook']);
 
 // Review routes
-Route::get('/review', [ReviewsController::class, 'getReviews']);
-Route::post('/review', [ReviewsController::class, 'getReviews']);
+Route::get('/review', [ReviewsController::class, 'getReviews'])->name ('review');
+Route::post('/review', [ReviewsController::class, 'getReviews'])->name ('review');
 
 Route::get('/countries/{name}', [CountryController::class, 'show']);
 ?>
