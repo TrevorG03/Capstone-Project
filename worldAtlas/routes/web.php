@@ -41,6 +41,9 @@ Route::get('/attraction/{attractionID}', [ItemsController::class, 'loadAttractio
 Route::post('/attraction/createReview/{attractionID}', [ItemsController::class, 'createReview']);
 
 // Review routes
+Route::get('/review', [ReviewsController::class, 'getReviews'])->name ('review');
+Route::post('/review', [ReviewsController::class, 'getReviews'])->name ('review');
+
 Route::post('/review/{itemType}/{itemID}', [ReviewsController::class, 'getReviews']);
 
 Route::get('/countries/{name}', [CountryController::class, 'show']);
