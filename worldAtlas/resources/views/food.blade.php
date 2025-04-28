@@ -108,26 +108,6 @@
             <p> <a href="">Link to wkipedia or forms</a>  </p>
         </div>
 
-        <!-- <div class="foodItem-Card">
-            <h2>Food item 2</h2>
-            <img src="" alt="food img 1">
-            <p>Food desc</p>
-            <p> <a href="">Link to wkipedia or forms</a>  </p>
-        </div>
-
-        <div class="foodItem-Card">
-            <h2>Food item 2</h2>
-            <img src="" alt="food img 1">
-            <p>Food desc</p>
-            <p> <a href="">Link to wkipedia or forms</a>  </p>
-        </div>
-
-        <div class="foodItem-Card">
-            <h2>Food item 2</h2>
-            <img src="" alt="food img 1">
-            <p>Food desc</p>
-            <p> <a href="">Link to wkipedia or forms</a>  </p>
-        </div> -->
     </div>
 
     <section>
@@ -135,24 +115,31 @@
             <div class="container">
                 <h1>This is the food form. Use this form to add a food to our database!</h1>
                 <h2>This is a Form you can use to add Foods to our website. </h2>
-                <form role="form" method="post">
+                <form role="form" method="POST">
+                    @csrf
                     <div class="form-group">
-                        <label for="foodName">What's the name of the food?</label>
-                        <input class="form-control" type="text" id="foodName" placeholder="Food Name">
+                        <label for="name">What's the name of the food?</label>
+                        <input class="form-control" type="text" id="name" placeholder="Food Name">
                     </div>
 
                     <div class="form-group">
-                        <label for="continentName">Where does the food come from?</label>
+                        <label for="countryName">What Country?</label>
+                        <input class="form-control" type="text" id="countryName" placeholder="Country Name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="continentName">What Continent?</label>
                         <input class="form-control" type="text" id="continentName" placeholder="Continent Name">
                     </div>
 
                     <div class="form-group">
-                        <label for="foodTextArea">Describe your Food!</label>
-                        <textarea class="form-control" id="foodTextArea" rows="4" placeholder="Enter a Description for the food here."></textarea>
+                        <label for="describer">Describe your Food!</label>
+                        <textarea class="form-control" id="describer" rows="4" placeholder="Enter a Description for the food here."></textarea>
                     </div>
 
-                    <div class="checkbox">
-                        <label><input class="form-check-label" type="checkbox">I have verified that this info is accurate.</label>
+                    <div class="form-group">
+                        <label for="foodImg">Please upload a photo of your food:</label>
+                        <input class="form-control" type="file" id="foodImg" accept="image/*">
                     </div>
 
                     <button type="submit" class="btn btn-default">Submit</button>
