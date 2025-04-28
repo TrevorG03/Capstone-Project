@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta name="csrf-token" content="{{ csrf_token() }}">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Interactive World Map</title>
@@ -24,31 +23,41 @@
       box-shadow: 0 1px 5px rgba(0,0,0,0.65);
       cursor: pointer;
       margin: 5px;
+      border: none;
+      font-weight: bold;
     }
     .button-container {
       position: absolute;
       top: 10px;
       right: 10px;
-      z-index: 1100; /* Increased z-index so buttons appear on top */
+      z-index: 1100;
     }
     .dropdown-container {
       position: absolute;
       top: 50px;
       right: 10px;
-      z-index: 1000; /* Lower than button-container */
+      z-index: 1000;
       background: rgba(255, 255, 255, 0.8);
       padding: 10px;
       border-radius: 4px;
       box-shadow: 0 1px 5px rgba(0,0,0,0.65);
     }
+    form {
+      display: inline;
+    }
   </style>
 </head>
 <body>
   <div id="map"></div>
+
   <div class="button-container">
     <div class="button" id="back-button" style="display: none;">Back</div>
-    <div class="button" id="logout-button">Logout</div>
+    <form id="logout-form" action="{{ route('logout') }}" method="GET">
+      @csrf
+      <button type="submit" class="button">Logout</button>
+    </form>
   </div>
+
   <div class="dropdown-container">
     <select id="country-dropdown">
       <option value="">Select a country</option>
@@ -75,7 +84,7 @@
       bounds: worldBounds
     }).addTo(map);
 
-    var continentsLayer, countriesLayer, allCountriesLayer;
+    var continentsLayer, countriesLayer;
 
     function styleFeature(continent) {
       var fillColor = "#3388ff";
@@ -121,6 +130,17 @@
       };
     }
 
+    var continentsData = [
+      { name: "Africa", coordinates: [1, 20] },
+      { name: "Asia", coordinates: [34, 100] },
+      { name: "Europe", coordinates: [55, 15] },
+      { name: "North America", coordinates: [40, -100] },
+      { name: "South America", coordinates: [-15, -60] },
+      { name: "Oceania", coordinates: [-20, 135] },
+      { name: "Antarctica", coordinates: [-75, 0] }
+    ];
+
+ 
     var continentsData = [
       { name: "Africa", coordinates: [1, 20] },
       { name: "Asia", coordinates: [34, 100] },
@@ -254,6 +274,8 @@
       ]
     };
 
+
+
     function addContinents() {
       continentsLayer = L.layerGroup();
       continentsData.forEach(function(continent) {
@@ -286,10 +308,9 @@
 
         layer.on('click', function(e) {
           map.flyTo(e.latlng, 6, { animate: true, duration: 1.5 });
-          // Delay redirect until after zoom animation
           setTimeout(function() {
             window.location.href = '/countries/' + encodeURIComponent(country.name);
-          }, 1600); // 1.6 seconds to match zoom duration
+          }, 1600);
         });
 
         countriesLayer.addLayer(layer);
@@ -323,28 +344,6 @@
     });
 
     addContinents();
-
-    document.getElementById('logout-button').onclick = function() {
-  fetch('{{ route("logout") }}', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-    },
-    credentials: 'same-origin' // important for Laravel session cookies
-  })
-  .then(response => {
-    if (response.ok) {
-      window.location.href = '{{ route("login") }}'; // or use a static path like '/login'
-    } else {
-      console.error('Logout failed');
-    }
-  })
-  .catch(error => {
-    console.error('Logout error:', error);
-  });
-};
-
   </script>
 </body>
 </html>
