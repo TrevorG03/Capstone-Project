@@ -34,11 +34,11 @@ Route::post('/foodEntryForm', [FoodController::class, 'foodEntryForm'])->name('f
 
 // Item Routes
 Route::get('/book/{bookID}', [ItemsController::class, 'loadBook']);
-Route::post('/book/createReview/{bookID}', [ItemsController::class, 'createReview']);
+Route::post('/book/createReview/{bookID}', [ItemsController::class, 'createBookReview']);
 Route::get('/food/{foodID}', [ItemsController::class, 'loadFood']);
-Route::post('/food/createReview/{foodID}', [ItemsController::class, 'createReview']);
+Route::post('/food/createReview/{foodID}', [ItemsController::class, 'createFoodReview']);
 Route::get('/attraction/{attractionID}', [ItemsController::class, 'loadAttraction']);
-Route::post('/attraction/createReview/{attractionID}', [ItemsController::class, 'createReview']);
+Route::post('/attraction/createReview/{attractionID}', [ItemsController::class, 'createAttractionReview']);
 
 // Review routes
 Route::get('/review', [ReviewsController::class, 'getReviews'])->name ('review');
