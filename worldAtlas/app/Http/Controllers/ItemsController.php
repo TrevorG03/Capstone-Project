@@ -13,6 +13,7 @@ use App\Models\food;
 use App\Models\foodReview;
 use App\Models\attraction;
 use App\Models\attractionReview;
+use App\Models\price;
 
 use App\Models\User;
 use App\Models\country;
@@ -79,6 +80,9 @@ class ItemsController extends Controller
 
         // $newData = new book(); $newData->name = "Book1"; $newData->describer = "This is the info about Book1.";
         // $newData->imgURL = "https://i.pinimg.com/736x/be/31/d7/be31d7e4e3c7b60d1fd058f4fde5abad.jpg"; $newData->publisher = "Ethan"; $newData->countryID = 0;
+        // $newData->save();
+
+        // $newData = new price(); $newData->itemType = book;  $newData->itemID = 1; $newData->price = 6.00; $newData->discount = 0;
         // $newData->save();
 
         // $newData = new bookReview(); $newData->userID = 2; $newData->bookID = 1; $newData->countryID = 1;
@@ -159,21 +163,73 @@ class ItemsController extends Controller
         return view('auth.attractions', compact('attraction', 'attractions', 'users', 'reviewOne', 'reviewTwo', 'reviewThree', 'avgStars'));
     }
 
-    public function createReview(Request $request, $id)
+    public function createBookReview(Request $request, $id)
     {
         $book = DB::table('books')->where('id', $id)->get();
         $books = DB::table('book_reviews')->where('bookID', $id)->get();
+        $check = DB::table('book_reviews')->where('userID', Session::has('loginId'))->get();
+        if (count($check) == 0) {
+            $newData = new bookReview();
+            $newData->userID = 1;
+            $newData->bookID = $id;
+            $newData->countryID = $book[0]->countryID;
+            $newData->text = $request->text;
+            $newData->title = $request->title;
+            $newData->stars = $request->stars;
+            $newData->save();
+        }
 
-        $newData = new bookReview();
-        $newData->userID = 1;
-        $newData->bookID = $id;
-        $newData->countryID = $book[0]->countryID;
-        $newData->text = $request->text;
-        $newData->title = $request->title;
-        $newData->stars = $request->stars;
-        $newData->save();
+        else {
+            Session::flash('error_message', 'You have already made a review for this book.');
+        }
 
-        return redirect("/review/book/{$id}");
+        return redirect("/book/{$id}");
+    }
+
+    public function createFoodReview(Request $request, $id)
+    {
+        $food = DB::table('foods')->where('id', $id)->get();
+        $foods = DB::table('food_reviews')->where('bookID', $id)->get();
+        $check = DB::table('food_reviews')->where('userID', Session::has('loginId'))->get();
+        if (count($check) == 0) {
+            $newData = new foodReview();
+            $newData->userID = 1;
+            $newData->attractionID = $id;
+            $newData->countryID = $food[0]->countryID;
+            $newData->text = $request->text;
+            $newData->title = $request->title;
+            $newData->stars = $request->stars;
+            $newData->save();
+        }
+        
+        else {
+            Session::flash('error_message', 'You have already made a review for this book.');
+        }
+
+        return redirect("/food/{$id}");
+    }
+
+    public function createAttractionReview(Request $request, $id)
+    {
+        $attraction = DB::table('attractions')->where('id', $id)->get();
+        $attractions = DB::table('attractions_reviews')->where('bookID', $id)->get();
+        $check = DB::table('attractions_reviews')->where('userID', Session::has('loginId'))->get();
+        if (count($check) == 0) {
+            $newData = new attractionReview();
+            $newData->userID = 1;
+            $newData->foodID = $id;
+            $newData->countryID = $attraction[0]->countryID;
+            $newData->text = $request->text;
+            $newData->title = $request->title;
+            $newData->stars = $request->stars;
+            $newData->save();
+        }
+        
+        else {
+            Session::flash('error_message', 'You have already made a review for this book.');
+        }
+
+        return redirect("/attraction/{$id}");
     }
 
 }
