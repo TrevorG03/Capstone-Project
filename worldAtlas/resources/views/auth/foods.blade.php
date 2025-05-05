@@ -173,7 +173,7 @@
                     </form>
                     <form action="" method="post">
                         @csrf
-                        <button type="submit" class="base-button" style="color: white; background-color: #87CEFA; font-size: 20px;">Book now!</button>
+                        <button type="submit" class="base-button" style="color: white; background-color: #87CEFA; font-size: 20px;">Order now!</button>
                     </form>
                 </div>
             </section>
