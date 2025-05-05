@@ -32,7 +32,24 @@ class FoodController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //validate request
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'countryName' => 'required|string',
+            'continentName' => 'required|string',
+            'describer' => 'required|string',
+            'publisher' => 'required|string',
+            'foodImg' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+        ]);
+
+        //file upload
+        if($request->hasFile('foodImg')){
+            $imagePath = $request->file('foodImg')->store(); 
+        }
+
+
+
+
     }
 
     /**

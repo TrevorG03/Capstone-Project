@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Food Page</title>
+    <title>Attraction Page</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ asset('food.css') }}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <style>
-        .foodCard-container {
+        .foodCard-contianer {
         display: flex;
         gap: 20px;
         overflow-x: auto;
@@ -79,7 +79,7 @@
     <h1>Hello, you have reached the Food page!</h1>
     <h2>Explore what the world has to offer your tastebuds!</h2>
 
-    <div class="foodCard-container">
+    <div class="foodCard-contianer">
         <div class="foodItem-Card">
             <h2>Food item 1</h2>
             <img src="" alt="food img 1">
@@ -149,43 +149,43 @@
     </section>
     
     <script>
-    // Use getElementById instead of querySelector for getting the form by ID
-    document.getElementById("foodForm").addEventListener("submit", function(event) {
-        // Changed parameter name to 'event' for clarity
-        event.preventDefault();
-        
+    
+    document.querySelector("foodForm").addEventListener("submit", function(handleFoodSubmission){
+        handleFoodSubmission.preventDefault();
         const name = document.getElementById("name").value;
         const country = document.getElementById("countryName").value;
         const continent = document.getElementById("continentName").value;
-        const description = document.getElementById("describer").value; // Changed 'desc' to 'description' to match usage below
-        const imgInput = document.getElementById("foodImg"); // Removed .value here
-        
-        // Check if files exist before accessing first element
-        if (!imgInput.files || !imgInput.files[0]) {
-            alert("Don't forget to add a pic :)");
+        const desc = document.getElementById("describer").value;
+        const imgInput = document.getElementById("foodImg").value;
+        const imgFile = imgInput.files[0];
+
+        if(!imgFile){
+            alert("Don't forget to add a pic :)")
             return;
         }
 
-        const imgFile = imgInput.files[0];
         const imgURL = URL.createObjectURL(imgFile);
         const newCard = document.createElement("div");
 
         newCard.className = "foodItem-Card";
-        newCard.innerHTML = `
-            <h2>${name}</h2>
-            <img src="${imgURL}" alt="${name}">
-            <p><strong>Country:</strong> ${country}</p>
-            <p><strong>Continent:</strong> ${continent}</p>
-            <p>${description}</p>
-            <p><a href="#">Learn More</a></p>
-        `;
+        newCard.innerHTML = 
+        `<h2>${name}</h2>
+        <img src="${imgURL}" alt="${name}">
+        <p><strong>Country:</strong></p>
+        <p><strong>Continent:</strong></p>
+        <p>${description}</p>
+        <p><a href="#">Learn More</a></p>`
 
-        // Make sure this class name matches exactly what's in your HTML
-        document.querySelector(".foodCard-container").appendChild(newCard); // Fixed typo in 'container'
+        document.querySelector(".foodCard-contianer").appendChild(newCard);
 
-        this.reset();
-    });
-</script>
+        this.reset()
 
+        });
+
+        // window.onload = function(){
+        //     const form = document.getElementById("foodForm");
+        //     form.onsubmit = handleFoodSubmission;
+        // }
+    </script>
 </body>
 </html>
