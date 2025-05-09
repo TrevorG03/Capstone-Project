@@ -181,7 +181,7 @@
                         @csrf
                         <button type="submit" class="base-button">View more reviews about this item</button>
                     </form>
-                    <form action="" method="post">
+                    <form action="/purchase/book/{{ $book[0]->id }}" method="post">
                         @csrf
                         <button type="submit" class="base-button" style="color: white; background-color: #87CEFA; font-size: 20px;">Purchase now!</button>
                     </form>
