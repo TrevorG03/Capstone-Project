@@ -232,4 +232,17 @@ class ItemsController extends Controller
         return redirect("/attraction/{$id}");
     }
 
+    public function loadPurchaseBook(Request $request, $id) {
+        $book = DB::table('books')->where('id', $id)->get();
+        $books = DB::table('book_reviews')->where('bookID', $id)->get();
+        $users = DB::table('users')->select('id', 'name')->get();
+
+        $avgStars = 0.0;
+        for ($i = 0; $i < sizeOf($books); $i++) {$avgStars += $books[$i]->stars;}
+        $avgStars /= sizeOf($books);
+        $avgStars = number_format((float) $avgStars, 1, '.', '');
+
+        return view('auth.purchaseBook', compact('book', 'books', 'users', 'avgStars'));
+    }
+
 }
