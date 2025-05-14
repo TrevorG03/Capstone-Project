@@ -120,6 +120,16 @@
         </style>
     </head>
     <body>
+        <script>
+            window.onload = function() {
+                <?php
+                if (Session::has('error_message')) {
+                    echo 'alert("' . Session::get('error_message') . '");';
+                    Session::forget('error_message');
+                }
+                ?>
+            };
+        </script>
         <header>
             <h1>{{ $book[0]->name }}</h1>
             @if ($avgStars > 0.9)
@@ -173,7 +183,7 @@
                     </form>
                     <form action="" method="post">
                         @csrf
-                        <button type="submit" class="base-button" style="color: white; background-color: #87CEFA; font-size: 20px;">Book now!</button>
+                        <button type="submit" class="base-button" style="color: white; background-color: #87CEFA; font-size: 20px;">Purchase now!</button>
                     </form>
                 </div>
             </section>
@@ -327,7 +337,7 @@
                 const sessionUserID = "{{ session('userID') }}";
 
                 for (let i = 0; i < books.length; i++) {
-                    if (books[i].userID === sessionUserID) {
+                    if (books[i].userID == sessionUserID) {
                         alert('You cannot submit two reviews for the same item.');
                         event.preventDefault();
                         break;
