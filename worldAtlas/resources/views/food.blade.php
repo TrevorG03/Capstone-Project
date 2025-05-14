@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Food Page</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ asset('food.css') }}">
@@ -72,49 +73,38 @@
         .foodItem-Card a:hover {
             color: #0048a2;
         }
+        .pageTitle{
+            font-family: "Papyrus";
+            text-align: center;
+        }
+        .pageSubTitle{
+            font-family: "Garamond";
+            text-align: center;
+        }
+        .formHeader{
+            font-family: "Papyrus";
+            text-align: center;
+        }
+        .formSubHead{
+            font-family: "Garamond";
+            text-align: center:
+        }
     </style>
 </head>
 
 <body>
-    <h1>Hello, you have reached the Food page!</h1>
-    <h2>Explore what the world has to offer your tastebuds!</h2>
+    <h1 class="pageTitle">Hello, you have reached the Food page!</h1>
+    <h2 class="pageSubTitle">Explore what the world has to offer your tastebuds!</h2>
 
     <div class="foodCard-container">
-        <div class="foodItem-Card">
-            <h2>Food item 1</h2>
-            <img src="" alt="food img 1">
-            <p>Food desc</p>
-            <p> <a href="">Link to wkipedia or forms</a>  </p>
-        </div>
-
-        <div class="foodItem-Card">
-            <h2>Food item 2</h2>
-            <img src="" alt="food img 1">
-            <p>Food desc</p>
-            <p> <a href="">Link to wkipedia or forms</a>  </p>
-        </div>
-
-        <div class="foodItem-Card">
-            <h2>Food item 2</h2>
-            <img src="" alt="food img 1">
-            <p>Food desc</p>
-            <p> <a href="">Link to wkipedia or forms</a>  </p>
-        </div>
-
-        <div class="foodItem-Card">
-            <h2>Food item 2</h2>
-            <img src="" alt="food img 1">
-            <p>Food desc</p>
-            <p> <a href="">Link to wkipedia or forms</a>  </p>
-        </div>
 
     </div>
 
     <section>
         <div>
             <div class="container">
-                <h1>This is the food form. Use this form to add a food to our database!</h1>
-                <h2>This is a Form you can use to add Foods to our website. </h2>
+                <h1 class="formHeader">This is the food form. Use this form to add a food to our database!</h1>
+                <h2 class="formSubHead">This is a Form you can use to add Foods to our website. </h2>
                 <form id="foodForm" role="form" method="GET">
                     @csrf
                     <div class="form-group">
@@ -139,7 +129,7 @@
 
                     <div class="form-group">
                         <label for="foodImg">Please upload a photo of your food:</label>
-                        <input class="form-control" type="file" id="foodImg" accept="image/*">
+                        <input class="form-control-file" type="file" id="foodImg" accept="image/*">
                     </div>
 
                     <button type="submit" class="btn btn-default">Submit</button>

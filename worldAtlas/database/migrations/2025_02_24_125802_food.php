@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('foods', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('countryName');
+            $table->string('continentName');
             $table->string('describer');
             $table->string('imgURL');
             $table->string('publisher');
