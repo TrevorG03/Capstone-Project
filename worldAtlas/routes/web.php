@@ -46,6 +46,9 @@ Route::post('/review', [ReviewsController::class, 'getReviews'])->name ('review'
 
 Route::post('/review/{itemType}/{itemID}', [ReviewsController::class, 'getReviews']);
 
+// Purchase routes
+Route::post('/purchase/book/{itemID}', [ItemsController::class, 'loadPurchaseBook']);
+
 Route::get('/countries/{name}', [CountryController::class, 'show']);
 ?>
 
