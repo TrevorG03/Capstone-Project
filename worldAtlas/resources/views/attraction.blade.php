@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Attraction Page</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>Attractions Page</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{{ asset('food.css') }}">
+    <link rel="stylesheet" href="{{ asset('attractions.css') }}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <style>
-        .foodCard-contianer {
+        .attractionCard-container {
         display: flex;
         gap: 20px;
         overflow-x: auto;
@@ -19,9 +20,9 @@
         white-space: nowrap;
         }
 
-        .foodItem-Card {
+        .attractionItem-Card {
             flex: 0 0 auto;
-            width: 300px;
+            width: 350px; /* Slightly wider for attraction details */
             background-color: #ffffff;
             border: 1px solid #ddd;
             border-radius: 8px;
@@ -30,29 +31,29 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .foodItem-Card:hover {
+        .attractionItem-Card:hover {
             transform: translateY(-5px);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
         }
 
-        .foodItem-Card h2 {
-            font-size: 18px;
+        .attractionItem-Card h2 {
+            font-size: 20px;
             color: #333;
             text-align: center;
-            padding: 10px 0;
+            padding: 12px 0;
             margin: 0;
             border-bottom: 1px solid #eee;
             background-color: #f9f9f9;
         }
 
-        .foodItem-Card img {
+        .attractionItem-Card img {
             width: 100%;
-            height: 200px;
+            height: 250px;
             object-fit: cover;
             display: block;
         }
 
-        .foodItem-Card p {
+        .attractionItem-Card p {
             padding: 15px;
             color: #555;
             font-size: 14px;
@@ -60,132 +61,136 @@
             margin: 0;
         }
 
-        .foodItem-Card a {
+        .attractionItem-Card a {
             display: inline-block;
             margin: 10px 15px;
             text-decoration: none;
             font-weight: bold;
-            color: #1a73e8;
+            color: #2ecc71;
             transition: color 0.3s ease;
         }
 
-        .foodItem-Card a:hover {
-            color: #0048a2;
+        .attractionItem-Card a:hover {
+            color: #27ae60;
+        }
+        .pageTitle{
+            font-family: "Helvetica Neue";
+            text-align: center;
+            color: #2c3e50;
+        }
+        .pageSubTitle{
+            font-family: "Arial";
+            text-align: center;
+            color: #34495e;
+        }
+        .formHeader{
+            font-family: "Helvetica Neue";
+            text-align: center;
+        }
+        .formSubHead{
+            font-family: "Arial";
+            text-align: center;
         }
     </style>
 </head>
 
 <body>
-    <h1>Hello, you have reached the Food page!</h1>
-    <h2>Explore what the world has to offer your tastebuds!</h2>
+    <h1 class="pageTitle">Discover Amazing Places!</h1>
+    <h2 class="pageSubTitle">Explore the world's most fascinating destinations</h2>
 
-    <div class="foodCard-contianer">
-        <div class="foodItem-Card">
-            <h2>Food item 1</h2>
-            <img src="" alt="food img 1">
-            <p>Food desc</p>
-            <p> <a href="">Link to wkipedia or forms</a>  </p>
-        </div>
-
-        <div class="foodItem-Card">
-            <h2>Food item 2</h2>
-            <img src="" alt="food img 1">
-            <p>Food desc</p>
-            <p> <a href="">Link to wkipedia or forms</a>  </p>
-        </div>
-
-        <div class="foodItem-Card">
-            <h2>Food item 2</h2>
-            <img src="" alt="food img 1">
-            <p>Food desc</p>
-            <p> <a href="">Link to wkipedia or forms</a>  </p>
-        </div>
-
-        <div class="foodItem-Card">
-            <h2>Food item 2</h2>
-            <img src="" alt="food img 1">
-            <p>Food desc</p>
-            <p> <a href="">Link to wkipedia or forms</a>  </p>
-        </div>
-
+    <div class="attractionCard-container">
     </div>
 
     <section>
         <div>
             <div class="container">
-                <h1>This is the food form. Use this form to add a food to our database!</h1>
-                <h2>This is a Form you can use to add Foods to our website. </h2>
-                <form id="foodForm" role="form" method="GET">
+                <h1 class="formHeader">Share a Tourist Attraction</h1>
+                <h2 class="formSubHead">Help others discover amazing places to visit</h2>
+                <form id="attractionForm" role="form" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
-                        <label for="name">What's the name of the food?</label>
-                        <input class="form-control" type="text" id="name" placeholder="Food Name">
+                        <label for="name">Attraction Name</label>
+                        <input class="form-control" type="text" id="name" placeholder="Enter attraction name">
                     </div>
 
                     <div class="form-group">
-                        <label for="countryName">What Country?</label>
-                        <input class="form-control" type="text" id="countryName" placeholder="Country Name">
+                        <label for="location">Location</label>
+                        <input class="form-control" type="text" id="location" placeholder="City, Country">
                     </div>
 
                     <div class="form-group">
-                        <label for="continentName">What Continent?</label>
-                        <input class="form-control" type="text" id="continentName" placeholder="Continent Name">
+                        <label for="category">Category</label>
+                        <select class="form-control" id="category">
+                            <option value="">Select a category</option>
+                            <option value="Historical Site">Historical Site</option>
+                            <option value="Natural Wonder">Natural Wonder</option>
+                            <option value="Museum">Museum</option>
+                            <option value="Park">Park</option>
+                            <option value="Architecture">Architecture</option>
+                            <option value="Entertainment">Entertainment</option>
+                            <option value="Other">Other</option>
+                        </select>
                     </div>
 
                     <div class="form-group">
-                        <label for="describer">Describe your Food!</label>
-                        <textarea class="form-control" id="describer" rows="4" placeholder="Enter a Description for the food here."></textarea>
+                        <label for="describer">Description</label>
+                        <textarea class="form-control" id="describer" rows="4" 
+                                placeholder="Describe what makes this place special, best time to visit, etc."></textarea>
                     </div>
 
                     <div class="form-group">
-                        <label for="foodImg">Please upload a photo of your food:</label>
-                        <input class="form-control" type="file" id="foodImg" accept="image/*">
+                        <label for="ticketPrice">Ticket Price (Optional)</label>
+                        <input class="form-control" type="text" id="ticketPrice" 
+                               placeholder="Enter ticket price or 'Free' if no admission fee">
                     </div>
 
-                    <button type="submit" class="btn btn-default">Submit</button>
+                    <div class="form-group">
+                        <label for="attractionImg">Upload Image</label>
+                        <input class="form-control-file" type="file" id="attractionImg" accept="image/*">
+                    </div>
+
+                    <button type="submit" class="btn btn-success">Add Attraction</button>
                 </form>
             </div>
         </div>
     </section>
     
     <script>
-    
-    document.querySelector("foodForm").addEventListener("submit", function(handleFoodSubmission){
-        handleFoodSubmission.preventDefault();
+    document.getElementById("attractionForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+        
         const name = document.getElementById("name").value;
-        const country = document.getElementById("countryName").value;
-        const continent = document.getElementById("continentName").value;
-        const desc = document.getElementById("describer").value;
-        const imgInput = document.getElementById("foodImg").value;
-        const imgFile = imgInput.files[0];
-
-        if(!imgFile){
-            alert("Don't forget to add a pic :)")
+        const location = document.getElementById("location").value;
+        const category = document.getElementById("category").value;
+        const description = document.getElementById("describer").value;
+        const ticketPrice = document.getElementById("ticketPrice").value;
+        const imgInput = document.getElementById("attractionImg");
+        
+        if (!imgInput.files || !imgInput.files[0]) {
+            alert("Please upload an image of the attraction");
             return;
         }
 
+        const imgFile = imgInput.files[0];
         const imgURL = URL.createObjectURL(imgFile);
         const newCard = document.createElement("div");
 
-        newCard.className = "foodItem-Card";
-        newCard.innerHTML = 
-        `<h2>${name}</h2>
-        <img src="${imgURL}" alt="${name}">
-        <p><strong>Country:</strong></p>
-        <p><strong>Continent:</strong></p>
-        <p>${description}</p>
-        <p><a href="#">Learn More</a></p>`
+        newCard.className = "attractionItem-Card";
+        newCard.innerHTML = `
+            <h2>${name}</h2>
+            <img src="${imgURL}" alt="${name}">
+            <p><strong>Location:</strong> ${location}</p>
+            <p><strong>Category:</strong> ${category}</p>
+            ${ticketPrice ? `<p><strong>Ticket Price:</strong> ${ticketPrice}</p>` : ''}
+            <p>${description}</p>
+            <p><a href="#">View Details</a></p>
+        `;
 
-        document.querySelector(".foodCard-contianer").appendChild(newCard);
+        document.querySelector(".attractionCard-container").appendChild(newCard);
 
-        this.reset()
-
-        });
-
-        // window.onload = function(){
-        //     const form = document.getElementById("foodForm");
-        //     form.onsubmit = handleFoodSubmission;
-        // }
+        this.reset();
+    });
     </script>
+
 </body>
 </html>

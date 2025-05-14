@@ -44,7 +44,7 @@ class FoodController extends Controller
 
         //file upload
         if($request->hasFile('foodImg')){
-            $imagePath = $request->file('foodImg')->store(); 
+            $imagePath = $request->file('foodImg')->store();  
         }
 
 

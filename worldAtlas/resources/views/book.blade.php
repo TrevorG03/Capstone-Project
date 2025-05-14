@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Book Page</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{{ asset('food.css') }}">
+    <link rel="stylesheet" href="{{ asset('book.css') }}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <style>
-        .bookCard-contianer {
+        .bookCard-container {
         display: flex;
         gap: 20px;
         overflow-x: auto;
@@ -47,7 +48,7 @@
 
         .bookItem-Card img {
             width: 100%;
-            height: 200px;
+            height: 300px; /* Made taller for book covers */
             object-fit: cover;
             display: block;
         }
@@ -72,116 +73,104 @@
         .bookItem-Card a:hover {
             color: #0048a2;
         }
+        .pageTitle{
+            font-family: "Georgia";
+            text-align: center;
+        }
+        .pageSubTitle{
+            font-family: "Times New Roman";
+            text-align: center;
+        }
+        .formHeader{
+            font-family: "Georgia";
+            text-align: center;
+        }
+        .formSubHead{
+            font-family: "Times New Roman";
+            text-align: center;
+        }
     </style>
 </head>
 
 <body>
-    <h1>Hello, you have reached the Food page!</h1>
-    <h2>Explore what the world has to offer your tastebuds!</h2>
+    <h1 class="pageTitle">Welcome to the Book Library!</h1>
+    <h2 class="pageSubTitle">Discover your next favorite read</h2>
 
-    <div class="bookCard-contianer">
-        <div class="bookItem-Card">
-            <h2>Food item 1</h2>
-            <img src="" alt="food img 1">
-            <p>Food desc</p>
-            <p> <a href="">Link to wkipedia or forms</a>  </p>
-        </div>
-
-        <div class="bookItem-Card">
-            <h2>Food item 2</h2>
-            <img src="" alt="food img 1">
-            <p>Food desc</p>
-            <p> <a href="">Link to wkipedia or forms</a>  </p>
-        </div>
-
-        <div class="bookItem-Card">
-            <h2>Food item 2</h2>
-            <img src="" alt="food img 1">
-            <p>Food desc</p>
-            <p> <a href="">Link to wkipedia or forms</a>  </p>
-        </div>
-
-        <div class="bookItem-Card">
-            <h2>Food item 2</h2>
-            <img src="" alt="food img 1">
-            <p>Food desc</p>
-            <p> <a href="">Link to wkipedia or forms</a>  </p>
-        </div>
-
+    <div class="bookCard-container">
     </div>
 
     <section>
         <div>
             <div class="container">
-                <h1>This is the food form. Use this form to add a food to our database!</h1>
-                <h2>This is a Form you can use to add Foods to our website. </h2>
-                <form id="bookForm" role="form" method="GET">
+                <h1 class="formHeader">Add a New Book</h1>
+                <h2 class="formSubHead">Share your favorite books with our community</h2>
+                <form id="bookForm" role="form" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
-                        <label for="name">What's the name of the food?</label>
-                        <input class="form-control" type="text" id="name" placeholder="Book Title">
+                        <label for="name">Book Title</label>
+                        <input class="form-control" type="text" id="name" placeholder="Enter book title">
                     </div>
 
                     <div class="form-group">
-                        <label for="countryName">What Country?</label>
-                        <input class="form-control" type="text" id="countryName" placeholder="Country Name">
+                        <label for="author">Author</label>
+                        <input class="form-control" type="text" id="author" placeholder="Enter author name">
                     </div>
 
                     <div class="form-group">
-                        <label for="continentName">What Continent?</label>
-                        <input class="form-control" type="text" id="continentName" placeholder="Continent Name">
+                        <label for="genre">Genre</label>
+                        <input class="form-control" type="text" id="genre" placeholder="Enter book genre">
                     </div>
 
                     <div class="form-group">
-                        <label for="describer">Describe your Food!</label>
-                        <textarea class="form-control" id="describer" rows="4" placeholder="Enter a short back-cover blurb here."></textarea>
+                        <label for="describer">Book Description</label>
+                        <textarea class="form-control" id="describer" rows="4" placeholder="Enter a brief description of the book"></textarea>
                     </div>
 
                     <div class="form-group">
-                        <label for="bookImg">Please upload a photo of your food:</label>
-                        <input class="form-control" type="file" id="bookImg" accept="image/*">
+                        <label for="bookImg">Upload Book Cover</label>
+                        <input class="form-control-file" type="file" id="bookImg" accept="image/*">
                     </div>
 
-                    <button type="submit" class="btn btn-default">Submit</button>
+                    <button type="submit" class="btn btn-primary">Add Book</button>
                 </form>
             </div>
         </div>
     </section>
     
     <script>
-    
-    document.querySelector("bookForm").addEventListener("submit", function(handleFoodSubmission){
-        handleFoodSubmission.preventDefault();
-        const name = document.getElementById("name").value;
-        const country = document.getElementById("countryName").value;
-        const continent = document.getElementById("continentName").value;
-        const desc = document.getElementById("describer").value;
-        const imgInput = document.getElementById("bookImg").value;
-        const imgFile = imgInput.files[0];
-
-        if(!imgFile){
-            alert("Don't forget to add a pic :)")
+    document.getElementById("bookForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+        
+        const title = document.getElementById("name").value;
+        const author = document.getElementById("author").value;
+        const genre = document.getElementById("genre").value;
+        const description = document.getElementById("describer").value;
+        const imgInput = document.getElementById("bookImg");
+        
+        if (!imgInput.files || !imgInput.files[0]) {
+            alert("Please upload a book cover image");
             return;
         }
 
+        const imgFile = imgInput.files[0];
         const imgURL = URL.createObjectURL(imgFile);
         const newCard = document.createElement("div");
 
         newCard.className = "bookItem-Card";
-        newCard.innerHTML = 
-        `<h2>${name}</h2>
-        <img src="${imgURL}" alt="${name}">
-        <p><strong>Country:</strong> ${country}</p>
-        <p><strong>Continent:</strong> ${continent}</p>
-        <p>${description}</p>
-        <p><a href="#">Learn More</a></p>`
+        newCard.innerHTML = `
+            <h2>${title}</h2>
+            <img src="${imgURL}" alt="${title} cover">
+            <p><strong>Author:</strong> ${author}</p>
+            <p><strong>Genre:</strong> ${genre}</p>
+            <p>${description}</p>
+            <p><a href="#">Read More</a></p>
+        `;
 
-        document.querySelector(".bookCard-contianer").appendChild(newCard);
+        document.querySelector(".bookCard-container").appendChild(newCard);
 
-        this.reset()
-
-        });
-
+        this.reset();
+    });
     </script>
+
 </body>
 </html>
